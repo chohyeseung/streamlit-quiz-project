@@ -90,8 +90,9 @@ def load_quiz_data() -> dict:
 # 사용자 DB (미리 정의된 계정)
 # ─────────────────────────────────────────────
 USERS = {
-    "poodlecho": "poodle0223",
-    "guest": "1234",
+    "poodlecho": {"password": "poodle0223", "name": "조혜승"},
+    "박규동": {"password": "1234", "name": "박규동"},
+    "guest": {"password": "1234", "name": "게스트"},
 }
 
 
@@ -155,9 +156,10 @@ def render_home():
         submitted = st.form_submit_button("로그인", use_container_width=True)
 
     if submitted:
-        if username in USERS and USERS[username] == password:
+        if username in USERS and USERS[username]["password"] == password:
             st.session_state.logged_in = True
             st.session_state.username = username
+            st.session_state.display_name = USERS[username]["name"]
             st.session_state.step = "quiz1"
             st.session_state.login_error = ""
             st.rerun()
@@ -189,6 +191,10 @@ def render_quiz(axis_key: str, next_step: str):
     # 축 구분 헤더
     render_student_info()
     st.markdown("---")
+
+    name = st.session_state.get("display_name", "")
+    st.markdown(f"👋 **{name}님, 안녕하세요!**")
+    st.markdown("")
 
     axis_num = "1" if axis_key == "axis1" else "2"
     axis_label = axis["label"]
@@ -255,6 +261,10 @@ def render_result():
 
     render_student_info()
     st.markdown("---")
+
+    name = st.session_state.get("display_name", "")
+    st.markdown(f"👋 **{name}님의 소비 성향 결과예요!**")
+    st.markdown("")
 
     st.markdown(
         f"""
