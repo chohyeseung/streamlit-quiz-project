@@ -90,7 +90,7 @@ def load_quiz_data() -> dict:
 # 사용자 DB (미리 정의된 계정)
 # ─────────────────────────────────────────────
 USERS = {
-    "poodlecho": {"password": "poodle0223", "name": "조혜승"},
+    "poodlecho": {"password": "1234", "name": "조혜승"},
     "박규동": {"password": "1234", "name": "박규동"},
     "guest": {"password": "1234", "name": "게스트"},
 }
